@@ -38,8 +38,7 @@ type H256FastMap<T> = HashMap<H256, T, hash::BuildHasherDefault<PlainHasher>>;
 ///
 /// # Example
 /// ```rust
-/// extern crate codechain_db as cdb;
-/// use cdb::*;
+/// use codechain_db::*;
 ///
 /// let mut m = MemoryDB::new();
 /// let d = "Hello world!".as_bytes();
@@ -85,8 +84,7 @@ impl MemoryDB {
     ///
     /// # Examples
     /// ```rust
-    /// extern crate codechain_db as cdb;
-    /// use cdb::*;
+    /// use codechain_db::*;
     ///
     /// let mut m = MemoryDB::new();
     /// let hello_bytes = "Hello world!".as_bytes();
