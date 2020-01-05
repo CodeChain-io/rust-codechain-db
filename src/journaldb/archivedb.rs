@@ -198,7 +198,7 @@ impl JournalDB for ArchiveDB {
 mod tests {
     use super::*;
     use crate::{kvdb_memorydb, JournalDB};
-    use crypto::blake256;
+    use codechain_crypto::blake256;
 
     #[test]
     fn insert_same_in_fork() {
