@@ -1,4 +1,4 @@
-// Copyright 2019 Kodebox, Inc.
+// Copyright 2019-2020 Kodebox, Inc.
 // Copyright 2015-2017 Parity Technologies (UK) Ltd.
 // This file is part of CodeChain.
 //
@@ -17,14 +17,12 @@
 
 //! Disk-backed `HashDB` implementation.
 
-use std::sync::Arc;
-
-use kvdb::{self, DBTransaction};
-use primitives::{Bytes, H256};
-
 use crate::hashdb::HashDB;
 use crate::memorydb::MemoryDB;
 use crate::DatabaseError;
+use kvdb::{DBTransaction, KeyValueDB};
+use primitives::{Bytes, H256};
+use std::sync::Arc;
 
 /// A `HashDB` which can manage a short-term journal potentially containing many forks of mutually
 /// exclusive actions.
@@ -72,7 +70,7 @@ pub trait JournalDB: HashDB {
     }
 
     /// Get backing database.
-    fn backing(&self) -> &Arc<dyn kvdb::KeyValueDB>;
+    fn backing(&self) -> &Arc<dyn KeyValueDB>;
 
     /// Clear internal structures. This should called after changes have been written
     /// to the backing storage.

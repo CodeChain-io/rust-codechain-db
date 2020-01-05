@@ -1,4 +1,4 @@
-// Copyright 2019 Kodebox, Inc.
+// Copyright 2019-2020 Kodebox, Inc.
 // Copyright 2015-2017 Parity Technologies (UK) Ltd.
 // This file is part of CodeChain.
 //
@@ -16,17 +16,12 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //! Reference-counted memory-based `HashDB` implementation.
-use codechain_crypto;
-use plain_hasher;
-use primitives;
-use rlp;
 
 use super::{DBValue, HashDB};
 use codechain_crypto::{blake256, BLAKE_NULL_RLP};
 use plain_hasher::PlainHasher;
 use primitives::H256;
 use rlp::NULL_RLP;
-
 use std::collections::hash_map::Entry;
 use std::collections::HashMap;
 use std::hash;
@@ -228,7 +223,6 @@ impl HashDB for MemoryDB {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use codechain_crypto::blake256;
 
     #[test]
     fn memorydb_remove_and_purge() {

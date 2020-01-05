@@ -1,4 +1,4 @@
-// Copyright 2019 Kodebox, Inc.
+// Copyright 2019-2020 Kodebox, Inc.
 // Copyright 2015-2017 Parity Technologies (UK) Ltd.
 // This file is part of CodeChain.
 //
@@ -17,18 +17,16 @@
 
 //! Disk-backed `HashDB` implementation.
 
-use std::collections::HashMap;
-use std::sync::Arc;
-
-use kvdb::{DBTransaction, KeyValueDB};
-use primitives::{Bytes, H256};
-use rlp::{decode, encode};
-
 use super::traits::JournalDB;
 use super::{DB_PREFIX_LEN, LATEST_ERA_KEY};
 use crate::hashdb::*;
 use crate::memorydb::*;
 use crate::DatabaseError;
+use kvdb::{DBTransaction, KeyValueDB};
+use primitives::{Bytes, H256};
+use rlp::{decode, encode};
+use std::collections::HashMap;
+use std::sync::Arc;
 
 /// Implementation of the `HashDB` trait for a disk-backed database with a memory overlay
 /// and latent-removal semantics.
@@ -199,8 +197,8 @@ impl JournalDB for ArchiveDB {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::{kvdb_memorydb, JournalDB};
     use crypto::blake256;
-    use {kvdb_memorydb, JournalDB};
 
     #[test]
     fn insert_same_in_fork() {

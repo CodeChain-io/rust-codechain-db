@@ -1,4 +1,4 @@
-// Copyright 2019 Kodebox, Inc.
+// Copyright 2019-2020 Kodebox, Inc.
 // Copyright 2015-2017 Parity Technologies (UK) Ltd.
 // This file is part of CodeChain.
 //
@@ -21,10 +21,9 @@ mod algorithm;
 mod archivedb;
 mod traits;
 
-use std::sync::Arc;
-
 pub use self::algorithm::Algorithm;
 pub use self::traits::JournalDB;
+use std::sync::Arc;
 
 /// Create a new `JournalDB` trait object over a generic key-value database.
 pub fn new_journaldb(backing: Arc<dyn kvdb::KeyValueDB>, algorithm: Algorithm, col: Option<u32>) -> Box<dyn JournalDB> {
