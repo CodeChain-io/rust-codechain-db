@@ -1,4 +1,4 @@
-// Copyright 2019 Kodebox, Inc.
+// Copyright 2019-2020 Kodebox, Inc.
 // Copyright 2015-2017 Parity Technologies (UK) Ltd.
 // This file is part of CodeChain.
 //
@@ -29,7 +29,7 @@ pub enum DatabaseError {
 }
 
 impl fmt::Display for DatabaseError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match *self {
             DatabaseError::NegativelyReferencedHash(hash) => {
                 write!(f, "Entry {} removed from database more times than it was added.", hash)
