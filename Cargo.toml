@@ -3,7 +3,7 @@ name = "codechain-db"
 version = "0.2.0"
 authors = ["CodeChain Team <hi@codechain.io>", "Parity Technologies <admin@parity.io>"]
 description = "Databases that CodeChain uses"
-license = "GPL-3.0"
+license = "AGPL-3.0"
 edition = "2018"
 
 [dependencies]
