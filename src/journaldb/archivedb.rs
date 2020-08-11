@@ -59,7 +59,7 @@ impl ArchiveDB {
 
     fn payload(&self, key: &H256) -> Option<DBValue> {
         self.backing
-            .get(self.column, &**key)
+            .get(self.column, key.as_bytes())
             .expect("Low-level database error. Some issue with your hard disk?")
             .map(|data| data.to_vec())
     }
@@ -125,7 +125,7 @@ impl JournalDB for ArchiveDB {
         for i in self.overlay.drain() {
             let (key, (value, rc)) = i;
             if rc > 0 {
-                batch.put(self.column, &key, &value);
+                batch.put(self.column, key.as_bytes(), &value);
                 inserts += 1;
             }
             if rc < 0 {
@@ -158,18 +158,18 @@ impl JournalDB for ArchiveDB {
         for i in self.overlay.drain() {
             let (key, (value, rc)) = i;
             if rc > 0 {
-                if self.backing.get(self.column, &key)?.is_some() {
+                if self.backing.get(self.column, key.as_bytes())?.is_some() {
                     return Err(DatabaseError::AlreadyExists(key))
                 }
-                batch.put(self.column, &key, &value);
+                batch.put(self.column, key.as_bytes(), &value);
                 inserts += 1;
             }
             if rc < 0 {
                 assert_eq!(-1, rc);
-                if self.backing.get(self.column, &key)?.is_none() {
+                if self.backing.get(self.column, key.as_bytes())?.is_none() {
                     return Err(DatabaseError::NegativelyReferencedHash(key))
                 }
-                batch.delete(self.column, &key);
+                batch.delete(self.column, key.as_bytes());
                 deletes += 1;
             }
         }
