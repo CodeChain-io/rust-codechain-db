@@ -199,7 +199,6 @@ mod tests {
     use super::*;
     use crate::JournalDB;
     use codechain_crypto::blake256;
-    use kvdb_memorydb;
 
     #[test]
     fn insert_same_in_fork() {

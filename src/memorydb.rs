@@ -104,7 +104,7 @@ impl MemoryDB {
 
     /// Return the internal map of hashes to data, clearing the current state.
     pub fn drain(&mut self) -> H256FastMap<(DBValue, i32)> {
-        mem::replace(&mut self.data, H256FastMap::default())
+        mem::take(&mut self.data)
     }
 
     /// Grab the raw information associated with a key. Returns None if the key
@@ -186,10 +186,7 @@ impl HashDB for MemoryDB {
             return true
         }
 
-        match self.data.get(key) {
-            Some(&(_, x)) if x > 0 => true,
-            _ => false,
-        }
+        matches!(self.data.get(key), Some(&(_, x)) if x > 0)
     }
 
     fn insert(&mut self, value: &[u8]) -> H256 {
